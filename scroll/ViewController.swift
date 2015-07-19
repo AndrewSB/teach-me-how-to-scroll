@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    var realHeaderView: UIView!
+    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerViewWidth: NSLayoutConstraint!
     
@@ -34,9 +36,23 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        println("did layout")
+        
         textView.contentInset.top = headerView.frame.height
         headerViewWidth.constant = view.frame.width
         textViewHeight.constant = textView.contentSize.height + headerView.frame.height
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        println("did appear")
+        
+        realHeaderView = headerView
+        headerView.removeFromSuperview()
+        headerView = nil
+        
+        scrollView.addSubview(realHeaderView)
     }
 }
 
@@ -44,11 +60,11 @@ class ViewController: UIViewController {
 // Plz ignore past this, this is just for scroll handling - I iz understanding everything past this point
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateViewForScroll(scrollView.contentOffset.y)
+        updateViewForScroll()
         println("\(scrollView.contentOffset.y)")
     }
     
-    private func updateViewForScroll(postion: CGFloat) {
+    private func updateViewForScroll() {
         
     }
 }
