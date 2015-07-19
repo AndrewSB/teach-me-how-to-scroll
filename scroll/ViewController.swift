@@ -10,6 +10,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerViewWidth: NSLayoutConstraint!
     
@@ -18,52 +21,35 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        textView.contentInset.top = headerView.frame.height
-        headerViewWidth.constant = view.frame.width
-        println("didload")
-        println("Basically here (or anywhere before the view is visible) I want to set the height of the textView to its contentHeight... That way the textView doesn't show  \(textView.contentSize)\n")
         
-        textViewHeight.constant = 200
+        scrollView.delegate = self
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        println("will appear")
-        println("\(textView.contentSize.width) \(textView.contentSize.height)\n")
-
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        println("will layout")
-        println("\(textView.contentSize.width) \(textView.contentSize.height)\n")
-
-    }
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-        
-        println("updating view constraints")
-        println("\(textView.contentSize.width) \(textView.contentSize.height)\n")
+        view.layoutIfNeeded() // need to call this because that forces viewDidLayoutSubviews to get called twice, the second its called it has the right height
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        println("did layout")
-        println("\(textView.contentSize.width) \(textView.contentSize.height)")
         
-        println("I assumed that in did layout subviews, the width of the view would be adjusted to the width of my screen.... But no \n")
+        textView.contentInset.top = headerView.frame.height
+        headerViewWidth.constant = view.frame.width
+        textViewHeight.constant = textView.contentSize.height + headerView.frame.height
+    }
+}
+
+
+// Plz ignore past this, this is just for scroll handling - I iz understanding everything past this point
+extension ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        updateViewForScroll(scrollView.contentOffset.y)
+        println("\(scrollView.contentOffset.y)")
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        println("did appear")
-        println("\(textView.contentSize.width) \(textView.contentSize.height)")
-        println("only in the didappear does the width get adjusted to screensize and the height adjusted to the actual contentHeight")
+    private func updateViewForScroll(postion: CGFloat) {
         
-        
-        println("I suppose I could programatically set the textView width in didLoad, but I want to use the power of autolayout")
     }
 }
 
