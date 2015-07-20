@@ -11,10 +11,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    let StopTranslatingOffset = CGFloat(88)
+    let TouchesTopOffset = CGFloat(44)
+    let FromBottomOffset = CGFloat(44)
+    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var textView: UITextView!
     let lolObjectHeight = CGFloat(4) // Thing you want to scale the size of
     let lolImageView = UIImageView() // Pattern ImageView
+    
     lazy var lolImageBlurView: UIImageView = {
         let imageView = UIImageView(frame: self.headerView.frame)
         imageView.image = self.lolImageView.image
@@ -24,16 +29,14 @@ class ViewController: UIViewController {
         return imageView
     }()
     
-    let StopTranslatingOffset = CGFloat(88)
-    let TouchesTopOffset = CGFloat(44)
-    let FromBottomOffset = CGFloat(44)
-    
     var contentSize: CGSize {
         get {
             let textViewFitSize = textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max))
             let textViewInsetHeight = headerView.frame.height
             
-            let textViewSize = CGSize(width: view.frame.width, height: textViewFitSize.height + textViewInsetHeight)
+            let textViewSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: textViewFitSize.height + textViewInsetHeight)
+            
+            println(UIScreen.mainScreen().bounds.width)
         
             return textViewSize
         }
@@ -48,6 +51,7 @@ class ViewController: UIViewController {
             view.contentSize = contentSize
         }
         
+        println(textView.scrollEnabled)
     }
     
 
@@ -65,20 +69,12 @@ class ViewController: UIViewController {
         
         textView.contentInset.top = headerView.frame.height
         textView.frame.size.height = contentSize.height
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         
-        println("did appear")
-        
-        println("\(textView.frame.height) == \(textView.contentSize.height)")
-        println((view as! UIScrollView).contentSize)
+        (view as! UIScrollView).contentSize = contentSize
     }
 }
 
 
-// Plz ignore past this, this is just for scroll handling - I iz understanding everything past this point
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         println("\(scrollView.contentOffset.y)")
@@ -106,7 +102,6 @@ extension ViewController: UIScrollViewDelegate {
         avatarTransform = CATransform3DScale(avatarTransform, avatarScaleFactor - 1, avatarScaleFactor - 1, 0)
         
         let labelTransform = CATransform3DMakeTranslation(0, max(-FromBottomOffset, TouchesTopOffset), 0)
-        
     }
 }
 
