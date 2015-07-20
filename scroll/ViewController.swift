@@ -77,13 +77,10 @@ class ViewController: UIViewController {
 
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        println("\(scrollView.contentOffset.y)")
         
         var offset = scrollView.contentOffset.y
         var avatarTransform = CATransform3DIdentity
         var headerTransform = CATransform3DIdentity
-        
-        lolImageBlurView.alpha = min(1, (offset - TouchesTopOffset) / FromBottomOffset)
         
         if offset < 0 {
             let headerScaleFactor = -offset / headerView.bounds.height
@@ -91,17 +88,38 @@ extension ViewController: UIScrollViewDelegate {
             
             headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizeVariation, 0)
             headerTransform = CATransform3DScale(headerTransform, headerScaleFactor + 1, headerScaleFactor + 1, 0)
-        } else {
-            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-StopTranslatingOffset, -offset), 0)
         }
+        
+        else {
+            
+            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-StopTranslatingOffset, -offset), 0)
+            // headerLabel.layer.transform = headerTransform
+            
+            let labelTransform = CATransform3DMakeTranslation(0, max(-FromBottomOffset, TouchesTopOffset), 0)
+
+            
+            lolImageBlurView.alpha = min(1, (offset - TouchesTopOffset) / FromBottomOffset)
+
+            
+            let avatarScaleFactor = (min(StopTranslatingOffset, offset) / lolObjectHeight) / 1.4
+            let avatarSizeVariation = ((lolObjectHeight * (avatarScaleFactor + 1)) - lolObjectHeight) / 2
+            avatarTransform = CATransform3DTranslate(avatarTransform, 0, avatarSizeVariation, 0)
+            avatarTransform = CATransform3DScale(avatarTransform, avatarScaleFactor - 1, avatarScaleFactor - 1, 0)
+            
+            if offset <= StopTranslatingOffset {
+//                if avatarImage.layer.zPosition < header.layer.zPosition{
+//                    header.layer.zPosition = 0
+//                }
+            } else {
+//                if avatarImage.layer.zPosition >= header.layer.zPosition{
+//                    header.layer.zPosition = 2
+//                }
+            }
+        }
+        
+        
+        // avatarImage.layer.transform = avatarTransform
         headerView.layer.transform = headerTransform
-        
-        let avatarScaleFactor = (min(StopTranslatingOffset, offset) / lolObjectHeight) / 1.4
-        let avatarSizeVariation = ((lolObjectHeight * (avatarScaleFactor + 1)) - lolObjectHeight) / 2
-        avatarTransform = CATransform3DTranslate(avatarTransform, 0, avatarSizeVariation, 0)
-        avatarTransform = CATransform3DScale(avatarTransform, avatarScaleFactor - 1, avatarScaleFactor - 1, 0)
-        
-        let labelTransform = CATransform3DMakeTranslation(0, max(-FromBottomOffset, TouchesTopOffset), 0)
     }
 }
 
