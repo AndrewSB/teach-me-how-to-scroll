@@ -12,35 +12,39 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    var realHeaderView: UIView!
-    
     @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var headerViewWidth: NSLayoutConstraint!
-    
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var textViewHeight: NSLayoutConstraint!
+    
+    var realScrollView: UIScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         scrollView.delegate = self
+        
+        scrollView.contentSize = CGSize(width: view.frame.width, height: textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max)).height)
     }
     
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
+        
         view.layoutIfNeeded() // need to call this because that forces viewDidLayoutSubviews to get called twice, the second its called it has the right height
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        println("did layout")
+
+        headerView.frame.size.width = view.frame.width
+        textView.frame.size.width = view.frame.width
         
         textView.contentInset.top = headerView.frame.height
-        headerViewWidth.constant = view.frame.width
-        textViewHeight.constant = textView.contentSize.height + headerView.frame.height
+        textView.frame.size.height = textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max)).height
+        
+        println(scrollView.contentSize)
+
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -48,11 +52,8 @@ class ViewController: UIViewController {
         
         println("did appear")
         
-        realHeaderView = headerView
-        headerView.removeFromSuperview()
-        headerView = nil
-        
-        scrollView.addSubview(realHeaderView)
+        println("\(textView.frame.height) == \(textView.contentSize.height)")
+        println(scrollView.contentSize)
     }
 }
 
