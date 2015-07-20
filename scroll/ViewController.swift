@@ -11,7 +11,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var textView: UITextView!
     
@@ -20,9 +19,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scrollView.delegate = self
+        if let view = view as? UIScrollView {
+            view.delegate = self
+            view.contentSize = CGSize(width: view.frame.width, height: textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max)).height)
+        }
         
-        scrollView.contentSize = CGSize(width: view.frame.width, height: textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max)).height)
     }
     
 
@@ -42,7 +43,7 @@ class ViewController: UIViewController {
         textView.contentInset.top = headerView.frame.height
         textView.frame.size.height = textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max)).height
         
-        println(scrollView.contentSize)
+        println((view as! UIScrollView).contentSize)
 
         
     }
@@ -53,7 +54,7 @@ class ViewController: UIViewController {
         println("did appear")
         
         println("\(textView.frame.height) == \(textView.contentSize.height)")
-        println(scrollView.contentSize)
+        println((view as! UIScrollView).contentSize)
     }
 }
 
