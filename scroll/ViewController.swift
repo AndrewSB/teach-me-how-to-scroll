@@ -16,36 +16,41 @@ class ViewController: UIViewController {
     
     var realScrollView: UIScrollView?
     
+    var contentSize: CGSize {
+        get {
+            let textViewFitSize = textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max))
+            let textViewInsetHeight = headerView.frame.height
+            
+            let textViewSize = CGSize(width: view.frame.width, height: textViewFitSize.height + textViewInsetHeight)
+        
+            return textViewSize
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = view as? UIScrollView {
             view.delegate = self
-            view.contentSize = CGSize(width: view.frame.width, height: textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max)).height)
+            view.contentSize = contentSize
         }
-        
     }
     
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-        
         view.layoutIfNeeded() // need to call this because that forces viewDidLayoutSubviews to get called twice, the second its called it has the right height
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-
         headerView.frame.size.width = view.frame.width
         textView.frame.size.width = view.frame.width
         
         textView.contentInset.top = headerView.frame.height
-        textView.frame.size.height = textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max)).height
-        
-        println((view as! UIScrollView).contentSize)
-
-        
+        textView.frame.size.height = contentSize.height
     }
     
     override func viewDidAppear(animated: Bool) {
