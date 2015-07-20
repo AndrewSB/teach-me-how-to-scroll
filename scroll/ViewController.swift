@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     let TouchesTopOffset = CGFloat(44)
     let FromBottomOffset = CGFloat(44)
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var textView: UITextView!
     let lolObjectHeight = CGFloat(4) // Thing you want to scale the size of
@@ -36,8 +37,6 @@ class ViewController: UIViewController {
             
             let textViewSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: textViewFitSize.height + textViewInsetHeight)
             
-            println(UIScreen.mainScreen().bounds.width)
-        
             return textViewSize
         }
     }
@@ -46,10 +45,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let view = view as? UIScrollView {
-            view.delegate = self
-            view.contentSize = contentSize
-        }
+        scrollView.delegate = self
+        scrollView.contentSize = contentSize
         
         println(textView.scrollEnabled)
     }
@@ -70,7 +67,7 @@ class ViewController: UIViewController {
         textView.contentInset.top = headerView.frame.height
         textView.frame.size.height = contentSize.height
         
-        (view as! UIScrollView).contentSize = contentSize
+        scrollView.contentSize = contentSize
     }
 }
 
