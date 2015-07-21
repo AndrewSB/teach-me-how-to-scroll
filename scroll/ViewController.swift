@@ -11,9 +11,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let StopTranslatingOffset = CGFloat(88)
+    let StopTranslatingOffset = CGFloat(122)
     let TouchesTopOffset = CGFloat(44)
     let FromBottomOffset = CGFloat(44)
+
+    @IBOutlet weak var textViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
+    
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var headerView: UIView!
@@ -30,16 +34,14 @@ class ViewController: UIViewController {
         return imageView
     }()
     
-    var contentSize: CGSize {
-        get {
-            let textViewFitSize = textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max))
-            let textViewInsetHeight = headerView.frame.height
+    lazy var contentSize: CGSize = {
+        let textViewFitSize = self.textView.sizeThatFits(CGSize(width: self.view.frame.width, height: CGFloat.max))
+        let textViewInsetHeight = self.headerView.frame.height
+        
+        let textViewSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: textViewFitSize.height + textViewInsetHeight)
             
-            let textViewSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: textViewFitSize.height + textViewInsetHeight)
-            
-            return textViewSize
-        }
-    }
+        return textViewSize
+    }()
     
     
     override func viewDidLoad() {
@@ -48,7 +50,11 @@ class ViewController: UIViewController {
         scrollView.delegate = self
         scrollView.contentSize = contentSize
         
-        println(textView.scrollEnabled)
+        
+        textViewWidthConstraint.constant = contentSize.width
+        textViewHeightConstraint.constant = contentSize.height
+      
+        println(textView.frame.size)
     }
     
 
@@ -61,13 +67,21 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        headerView.frame.size.width = view.frame.width
-        textView.frame.size.width = view.frame.width
+        println(textView.frame.size)
         
+        headerView.frame.size.width = contentSize.width
         textView.contentInset.top = headerView.frame.height
-        textView.frame.size.height = contentSize.height
         
         scrollView.contentSize = contentSize
+        textView.frame.size = contentSize
+        
+        println(textView.frame.size)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        textView.frame.size = contentSize
+         println(textView.frame.size)
     }
 }
 
@@ -75,9 +89,12 @@ class ViewController: UIViewController {
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
+        
         var offset = scrollView.contentOffset.y
         var avatarTransform = CATransform3DIdentity
         var headerTransform = CATransform3DIdentity
+        
+        println(offset)
         
         if offset < 0 {
             let headerScaleFactor = -offset / headerView.bounds.height
@@ -88,6 +105,9 @@ extension ViewController: UIScrollViewDelegate {
         }
         
         else {
+            
+            
+            println("offset \(-StopTranslatingOffset) is \(max(-StopTranslatingOffset, -offset))")
             
             headerTransform = CATransform3DTranslate(headerTransform, 0, max(-StopTranslatingOffset, -offset), 0)
             // headerLabel.layer.transform = headerTransform
