@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import SnapKit
+
+extension ViewController {
+    
+}
 
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         handleHeaderViewScroll(atOffset: scrollView.contentOffset.y)
     }
-}
-
-extension ViewController {
+    
     private func handleHeaderViewScroll(atOffset offset: CGFloat) {
         var headerTransform = CATransform3DIdentity
         

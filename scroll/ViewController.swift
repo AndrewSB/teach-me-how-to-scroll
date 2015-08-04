@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
     
+    var changeColorButtonTopConstraint: Constraint?
     @IBOutlet weak var changeColorButton: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -25,6 +27,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     let lolObjectHeight = CGFloat(4) // Thing you want to scale the size of
     let lolImageView = UIImageView() // Pattern ImageView
+    
     
     lazy var lolImageBlurView: UIImageView = {
         let imageView = UIImageView(frame: self.headerView.frame)
@@ -51,15 +54,19 @@ class ViewController: UIViewController {
         scrollView.delegate = self
         scrollView.contentSize = contentSize
         
-        
         textViewWidthConstraint.constant = contentSize.width
         textViewHeightConstraint.constant = contentSize.height
         
-        changeColorButton.userInteractionEnabled = true
-        
         println(textView.frame.size)
+        
+        
     }
     
+    private func congfigureAnimationsForAnimatingViews() {
+        changeColorButton.snp_makeConstraints { (make) -> Void in
+            self.changeColorButtonTopConstraint = make.top.equalTo(self.view).offset(-88).constraint
+        }
+    }
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -89,7 +96,6 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
-    
     @IBAction func buttonWasHit() {
         if headerView.backgroundColor == UIColor(red:0.917, green:0.286, blue:0.498, alpha:1) {
             headerView.backgroundColor = UIColor(red:0.319, green:0.371, blue:0.442, alpha:1)
