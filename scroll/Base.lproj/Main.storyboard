@@ -52,36 +52,25 @@
                                     <constraint firstAttribute="height" constant="200" id="mTS-uZ-Udk"/>
                                 </constraints>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IhB-Go-DMc" userLabel="transparent Header">
-                                <rect key="frame" x="16" y="20" width="568" height="300"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hil-Wg-vtn">
-                                        <rect key="frame" x="25" y="26" width="46" height="30"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="buttonWasHit" destination="zUl-nz-kcc" eventType="touchUpInside" id="dwQ-RQ-s9D"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="hil-Wg-vtn" firstAttribute="leading" secondItem="IhB-Go-DMc" secondAttribute="leading" constant="25" id="9K8-lG-yDS"/>
-                                    <constraint firstAttribute="height" constant="300" id="OK9-83-1I8"/>
-                                    <constraint firstItem="hil-Wg-vtn" firstAttribute="top" secondItem="IhB-Go-DMc" secondAttribute="top" constant="26" id="SAn-Az-brX"/>
-                                </constraints>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hil-Wg-vtn">
+                                <rect key="frame" x="60" y="70" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonWasHit" destination="zUl-nz-kcc" eventType="touchUpInside" id="dwQ-RQ-s9D"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.8970610499382019" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="IhB-Go-DMc" secondAttribute="trailing" id="1FP-ON-Yp9"/>
                             <constraint firstItem="eHZ-VV-ulr" firstAttribute="leading" secondItem="1N4-Ne-Xs5" secondAttribute="leading" id="7fB-gx-Mxk"/>
                             <constraint firstAttribute="trailing" secondItem="eHZ-VV-ulr" secondAttribute="trailing" id="JQm-A4-ZYH"/>
                             <constraint firstItem="zg8-x0-KDd" firstAttribute="top" secondItem="1N4-Ne-Xs5" secondAttribute="top" id="Mds-fX-SeL"/>
                             <constraint firstItem="e1e-OI-scO" firstAttribute="top" secondItem="zg8-x0-KDd" secondAttribute="bottom" id="PQM-Mp-qn2"/>
-                            <constraint firstItem="IhB-Go-DMc" firstAttribute="top" secondItem="YQW-8f-bQv" secondAttribute="bottom" id="QTQ-QQ-LYn"/>
+                            <constraint firstItem="hil-Wg-vtn" firstAttribute="top" secondItem="YQW-8f-bQv" secondAttribute="bottom" constant="50" id="a5K-yD-eXn"/>
+                            <constraint firstItem="hil-Wg-vtn" firstAttribute="leading" secondItem="1N4-Ne-Xs5" secondAttribute="leadingMargin" constant="44" id="dDK-QF-boY"/>
                             <constraint firstItem="zg8-x0-KDd" firstAttribute="leading" secondItem="1N4-Ne-Xs5" secondAttribute="leading" id="dtI-xu-CBD"/>
-                            <constraint firstItem="IhB-Go-DMc" firstAttribute="leading" secondItem="1N4-Ne-Xs5" secondAttribute="leadingMargin" id="ez5-rD-IGQ"/>
                             <constraint firstAttribute="trailing" secondItem="zg8-x0-KDd" secondAttribute="trailing" id="saj-1s-YTx"/>
                             <constraint firstItem="eHZ-VV-ulr" firstAttribute="top" secondItem="YQW-8f-bQv" secondAttribute="bottom" constant="-20" id="xa7-VA-CZS"/>
                         </constraints>

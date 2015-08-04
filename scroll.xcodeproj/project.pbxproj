@@ -12,6 +12,7 @@
 		460B97351B5C371C00CE4FB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 460B97331B5C371C00CE4FB9 /* Main.storyboard */; };
 		460B97371B5C371C00CE4FB9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460B97361B5C371C00CE4FB9 /* Images.xcassets */; };
 		460B973A1B5C371C00CE4FB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 460B97381B5C371C00CE4FB9 /* LaunchScreen.xib */; };
+		46B9A09F1B713B6B00055CE0 /* ViewControllerScrollHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B9A09E1B713B6B00055CE0 /* ViewControllerScrollHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		460B97341B5C371C00CE4FB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		460B97361B5C371C00CE4FB9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		460B97391B5C371C00CE4FB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		46B9A09E1B713B6B00055CE0 /* ViewControllerScrollHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerScrollHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				460B972F1B5C371C00CE4FB9 /* AppDelegate.swift */,
 				460B97311B5C371C00CE4FB9 /* ViewController.swift */,
+				46B9A09E1B713B6B00055CE0 /* ViewControllerScrollHandler.swift */,
 				460B97331B5C371C00CE4FB9 /* Main.storyboard */,
 				460B97361B5C371C00CE4FB9 /* Images.xcassets */,
 				460B97381B5C371C00CE4FB9 /* LaunchScreen.xib */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46B9A09F1B713B6B00055CE0 /* ViewControllerScrollHandler.swift in Sources */,
 				460B97321B5C371C00CE4FB9 /* ViewController.swift in Sources */,
 				460B97301B5C371C00CE4FB9 /* AppDelegate.swift in Sources */,
 			);
