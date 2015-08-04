@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var changeColorButton: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var headerView: UIView!
@@ -53,7 +54,9 @@ class ViewController: UIViewController {
         
         textViewWidthConstraint.constant = contentSize.width
         textViewHeightConstraint.constant = contentSize.height
-      
+        
+        changeColorButton.userInteractionEnabled = true
+        
         println(textView.frame.size)
     }
     
@@ -82,6 +85,17 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         textView.frame.size = contentSize
          println(textView.frame.size)
+    }
+}
+
+extension ViewController {
+    
+    @IBAction func buttonWasHit() {
+        if headerView.backgroundColor == UIColor(red:0.917, green:0.286, blue:0.498, alpha:1) {
+            headerView.backgroundColor = UIColor(red:0.319, green:0.371, blue:0.442, alpha:1)
+        } else {
+            headerView.backgroundColor = UIColor(red:0.917, green:0.286, blue:0.498, alpha:1)
+        }
     }
 }
 
