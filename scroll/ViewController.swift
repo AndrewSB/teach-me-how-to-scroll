@@ -57,14 +57,12 @@ class ViewController: UIViewController {
         textViewWidthConstraint.constant = contentSize.width
         textViewHeightConstraint.constant = contentSize.height
         
-        println(textView.frame.size)
-        
-        
+        congfigureConstraintsForAnimatingViews()
     }
     
-    private func congfigureAnimationsForAnimatingViews() {
+    private func congfigureConstraintsForAnimatingViews() {
         changeColorButton.snp_makeConstraints { (make) -> Void in
-            self.changeColorButtonTopConstraint = make.top.equalTo(self.view).offset(-88).constraint
+            self.changeColorButtonTopConstraint = make.top.equalTo(self.view).offset(88).constraint
         }
     }
 
